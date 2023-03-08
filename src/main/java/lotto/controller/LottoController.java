@@ -36,7 +36,7 @@ public class LottoController extends LottoControllerTemplate {
         List<Integer> numbers = inputLottoNumber();
         int bonusNumber = inputBonusNumber();
 
-        return new WinningLotto(Lotto.valueOf(numbers), new LottoNumber(bonusNumber));
+        return new WinningLotto(Lotto.of(numbers), new LottoNumber(bonusNumber));
     }
 
 }

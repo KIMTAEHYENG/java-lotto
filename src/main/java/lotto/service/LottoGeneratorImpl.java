@@ -16,7 +16,7 @@ public class LottoGeneratorImpl implements LottoGenerator {
     public List<Lotto> createLottoList(int count) {
         return IntStream.range(0, count)
                 .mapToObj(i -> Randoms.pickUniqueNumbersInRange(START_NUMBER, END_NUMBER, Lotto.LOTTO_SIZE))
-                .map(Lotto::valueOf)
+                .map(Lotto::of)
                 .collect(Collectors.toList());
     }
 }

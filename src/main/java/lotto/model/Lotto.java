@@ -19,7 +19,7 @@ public class Lotto {
         this.numbers = numbers;
     }
 
-    public static Lotto valueOf(List<Integer> numbers) {
+    public static Lotto of(List<Integer> numbers) {
         return new Lotto(numbers
                 .stream()
                 .map(LottoNumber::new)
