@@ -3,7 +3,7 @@ package lotto.model;
 public class Money {
 
     private final int money;
-    private static final int LOTTO_PRICE = 1000;
+    public static final int LOTTO_PRICE = 1000;
 
     public Money(String money) {
         this(Integer.parseInt(money));
@@ -13,10 +13,6 @@ public class Money {
         validate(money);
 
         this.money = money;
-    }
-
-    public int getMoney() {
-        return money;
     }
 
     public int getCount() {
@@ -33,7 +29,7 @@ public class Money {
         }
 
         if (isRestNonZero(money)) {
-            throw new IllegalArgumentException("로또 구입 금액이 1000 으로 나누어 떨이져야 합니다.");
+            throw new IllegalArgumentException(String.format("로또 구입 금액이 %d 으로 나누어 떨이져야 합니다.", LOTTO_PRICE));
         }
     }
 

@@ -1,19 +1,24 @@
 package lotto.controller;
 
 import lotto.model.Lotto;
-import lotto.model.LottoRequest;
 import lotto.model.Money;
+import lotto.model.ResultMap;
+import lotto.model.WinningLotto;
 import lotto.service.LottoGenerator;
-import lotto.service.LottoMatcher;
+
 import java.util.List;
 
 import static lotto.view.InputView.*;
-import static lotto.view.OutputView.*;
+import static lotto.view.OutputView.printLottoList;
+import static lotto.view.OutputView.printResult;
 
 public class LottoController extends LottoControllerTemplate {
 
-    private static final LottoMatcher matcher = new LottoMatcher();
-    private static final LottoGenerator generator = new LottoGenerator();
+    private final LottoGenerator generator;
+
+    public LottoController(LottoGenerator generator) {
+        this.generator = generator;
+    }
 
     @Override
     protected void runImpl() {
@@ -22,7 +27,19 @@ public class LottoController extends LottoControllerTemplate {
         List<Lotto> lottoList = generator.createLottoList(money.getCount());
         printLottoList(lottoList);
 
-        LottoRequest request = new LottoRequest(inputLottoNumber(), inputBonusNumber());
-        printMatchResult(money.getMoney(), matcher.calculateMatch(lottoList, request));
+        WinningLotto winningLotto = getWinningLotto();
+        printResult(getResult(winningLotto, lottoList));
     }
+
+    private ResultMap getResult(WinningLotto winningLotto, List<Lotto> lottoList) {
+        return new ResultMap(winningLotto, lottoList);
+    }
+
+    private WinningLotto getWinningLotto() {
+        Lotto lotto = new Lotto(inputLottoNumber());
+        int bonusNumber = inputBonusNumber();
+
+        return new WinningLotto(lotto, bonusNumber);
+    }
+
 }
