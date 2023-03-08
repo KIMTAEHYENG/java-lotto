@@ -23,7 +23,7 @@ public class Money {
         if (isNegative(money)) {
             throw new IllegalArgumentException("로또 구입 금액은 0 이상의 숫자여야 합니다.");
         }
-        
+
         if (isBuyLotto(money)) {
             throw new IllegalArgumentException("로또를 구입할 수 없습니다.");
         }

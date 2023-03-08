@@ -1,9 +1,6 @@
 package lotto.controller;
 
-import lotto.model.Lotto;
-import lotto.model.Money;
-import lotto.model.ResultMap;
-import lotto.model.WinningLotto;
+import lotto.model.*;
 import lotto.service.LottoGenerator;
 
 import java.util.List;
@@ -36,10 +33,10 @@ public class LottoController extends LottoControllerTemplate {
     }
 
     private WinningLotto getWinningLotto() {
-        Lotto lotto = new Lotto(inputLottoNumber());
+        List<Integer> numbers = inputLottoNumber();
         int bonusNumber = inputBonusNumber();
 
-        return new WinningLotto(lotto, bonusNumber);
+        return new WinningLotto(Lotto.valueOf(numbers), new LottoNumber(bonusNumber));
     }
 
 }
