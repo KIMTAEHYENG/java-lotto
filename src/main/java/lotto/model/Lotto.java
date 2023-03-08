@@ -1,9 +1,9 @@
 package lotto.model;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Lotto {
 
@@ -17,7 +17,6 @@ public class Lotto {
         validateRange(numbers);
         validateDuplicate(numbers);
 
-        Collections.sort(numbers);
         this.numbers = numbers;
     }
 
@@ -65,6 +64,8 @@ public class Lotto {
 
     @Override
     public String toString() {
-        return numbers.toString();
+        return numbers.stream().sorted()
+                .collect(Collectors.toList())
+                .toString();
     }
 }

@@ -54,7 +54,7 @@ public class ResultMap {
         return resultMap.entrySet().stream()
                 .sorted(Map.Entry.<Rank, Integer>comparingByKey().reversed())
                 .filter(entry -> entry.getKey() != Rank.NONE)
-                .map(entry -> entry.getKey() + " - " + entry.getValue())
+                .map(entry -> entry.getKey() + " - " + entry.getValue() + "개")
                 .collect(Collectors.joining("\n"));
     }
 }
