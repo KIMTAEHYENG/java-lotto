@@ -19,7 +19,7 @@ public class LottoController extends LottoControllerTemplate {
     @Override
     protected void runImpl() {
         final Money money = new Money(inputMoney());
-        makeResult(publishLottos(money.getCount()), makeWinningLotto());
+        makeResult(publishLottos(money.getLottoTicketCount()), makeWinningLotto());
     }
 
     private List<Lotto> publishLottos(final int count) {

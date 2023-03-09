@@ -15,7 +15,7 @@ public class Money {
         this.amount = amount;
     }
 
-    public int getTicketCount() {
+    public int getLottoTicketCount() {
         return amount / LOTTO_PRICE;
     }
 
