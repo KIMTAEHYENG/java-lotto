@@ -11,36 +11,30 @@ public enum Rank {
     FIFTH(3, false, 5_000),
     NONE(0, false, 0);
 
-    private static DecimalFormat DECIMAL_FORMAT = new DecimalFormat("###,###");
-    private static String MATCH_MESSAGE = "%d개 일치 (%s원)";
-    private static String BONUS_MATCH_MESSAGE = "%d개 일치, 보너스 볼 일치 (%s원)";
+    private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("###,###");
+    private static final String MATCH_MESSAGE = "%d개 일치 (%s원)";
+    private static final String BONUS_MATCH_MESSAGE = "%d개 일치, 보너스 볼 일치 (%s원)";
 
-    private boolean isMatchBonusNumber;
-    private int matchCount;
-    private int winningMoney;
+    private final boolean isMatchBonusNumber;
+    private final int matchCount;
+    private final int winningAmount;
 
-    Rank(int matchCount, boolean isMatchBonusNumber, int winningMoney) {
+    Rank(final int matchCount, final boolean isMatchBonusNumber, final int winningAmount) {
         this.matchCount = matchCount;
         this.isMatchBonusNumber = isMatchBonusNumber;
-        this.winningMoney = winningMoney;
+        this.winningAmount = winningAmount;
     }
 
-    public int getWinningMoney() {
-        return winningMoney;
+    public int getWinningAmount() {
+        return winningAmount;
     }
 
-    public static Rank valueOf(int matchCount, boolean isMatchBonusNumber) {
-        for (Rank rank : Rank.values()) {
-            if (isMatch(rank, matchCount, isMatchBonusNumber)) {
-                return rank;
-            }
-        }
-
-        return NONE;
+    public boolean isMatchBonusNumber() {
+        return isMatchBonusNumber;
     }
 
-    private static boolean isMatch(Rank rank, int matchCount, boolean isMatchBonusNumber) {
-        return rank.isMatchBonusNumber == isMatchBonusNumber && rank.matchCount == matchCount;
+    public int getMatchCount() {
+        return matchCount;
     }
 
     @Override
@@ -53,8 +47,7 @@ public enum Rank {
     }
 
 
-
     public String print(String message) {
-        return String.format(message, matchCount, DECIMAL_FORMAT.format(winningMoney));
+        return String.format(message, matchCount, DECIMAL_FORMAT.format(winningAmount));
     }
 }

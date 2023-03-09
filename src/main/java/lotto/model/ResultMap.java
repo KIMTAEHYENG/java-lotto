@@ -11,9 +11,9 @@ public class ResultMap {
     private final Map<Rank, Integer> resultMap;
     private static final int HUNDRED = 100;
 
-    public ResultMap(WinningLotto winningLotto, List<Lotto> lottoList) {
+    public ResultMap(List<Lotto> lottos, WinningLotto winningLotto) {
         this.resultMap = initResultMap();
-        calculateResultMap(winningLotto, lottoList);
+        calculateResultMap(lottos, winningLotto);
     }
 
     public float calculateRateOfReturn() {
@@ -22,7 +22,7 @@ public class ResultMap {
 
     private float getTotalWinningMoney() {
         return resultMap.entrySet().stream()
-                .map(entry -> (float) entry.getKey().getWinningMoney() * entry.getValue())
+                .map(entry -> (float) entry.getKey().getWinningAmount() * entry.getValue())
                 .reduce(0f, Float::sum);
     }
 
@@ -41,8 +41,8 @@ public class ResultMap {
         return result;
     }
 
-    private Map<Rank, Integer> calculateResultMap(WinningLotto winningLotto, List<Lotto> lottoList) {
-        lottoList.stream()
+    private Map<Rank, Integer> calculateResultMap(List<Lotto> lottos, WinningLotto winningLotto) {
+        lottos.stream()
                 .map(lotto -> winningLotto.calculateRank(lotto))
                 .forEach(rank -> resultMap.replace(rank, resultMap.get(rank) + 1));
 

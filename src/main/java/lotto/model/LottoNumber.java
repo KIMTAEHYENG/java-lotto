@@ -6,24 +6,24 @@ public class LottoNumber implements Comparable<LottoNumber> {
     public static final int END_NUMBER = 45;
     private final int number;
 
-    public LottoNumber(int number) {
+    public LottoNumber(final int number) {
         validateRange(number);
 
         this.number = number;
     }
 
-    private void validateRange(int number) {
+    private void validateRange(final int number) {
         if (outOfRange(number)) {
             throw new IllegalArgumentException(
                     String.format("로또 범위는 %d ~ %d사이 숫자여야 합니다.", START_NUMBER, END_NUMBER));
         }
     }
 
-    private boolean isInRange(int number) {
+    private boolean isInRange(final int number) {
         return START_NUMBER <= number && number <= END_NUMBER;
     }
 
-    private boolean outOfRange(int number) {
+    private boolean outOfRange(final int number) {
         return !isInRange(number);
     }
 

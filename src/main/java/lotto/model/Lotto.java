@@ -9,38 +9,40 @@ import java.util.stream.Collectors;
 public class Lotto {
 
     public static final int LOTTO_SIZE = 6;
-    private List<LottoNumber> numbers;
+    private final List<LottoNumber> numbers;
 
-    public Lotto(List<LottoNumber> numbers) {
-        validate(numbers);
+    public Lotto(final List<LottoNumber> numbers) {
+        validateSize(numbers);
         validateDuplicate(numbers);
         Collections.sort(numbers);
 
         this.numbers = numbers;
     }
 
-    public static Lotto of(List<Integer> numbers) {
+    public static Lotto of(final List<Integer> numbers) {
         return new Lotto(numbers
                 .stream()
                 .map(LottoNumber::new)
                 .collect(Collectors.toList()));
     }
 
-    public List<LottoNumber> getNumbers() {
-        return numbers;
+    public int matchCount(final Lotto lotto) {
+        return (int) numbers.stream()
+                .filter(lotto::contains)
+                .count();
     }
 
-    public boolean contains(LottoNumber number) {
+    public boolean contains(final LottoNumber number) {
         return numbers.contains(number);
     }
 
-    private void validate(List<LottoNumber> numbers) {
+    private void validateSize(final List<LottoNumber> numbers) {
         if (numbers.size() != LOTTO_SIZE) {
             throw new IllegalArgumentException(String.format("로또 목록의 사이즈는 %d 이여야 합니다.", LOTTO_SIZE));
         }
     }
 
-    private void validateDuplicate(List<LottoNumber> numbers) {
+    private void validateDuplicate(final List<LottoNumber> numbers) {
         Set<LottoNumber> uniqueNumbers = new HashSet<>(numbers);
 
         if (uniqueNumbers.size() < numbers.size()) {
